@@ -35,6 +35,9 @@
     "dependent_plugins": {
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "HelloCordova"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "HelloCordova"
         }
     }
 }

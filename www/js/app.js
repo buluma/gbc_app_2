@@ -25,11 +25,11 @@ $(document).ready(function(){
     homeinfo +='  <button class="btn btn-info btn-block" type="button"><span class="glyphicon glyphicon-road big-icon"></span> <h4>Weekly Planner</h4></button>';
     homeinfo +='</a>';
     homeinfo +='</div>';
-    homeinfo +='<div class="thumbnail">';
+    /*homeinfo +='<div class="thumbnail">';
     homeinfo +='<a href="daily.html">';
     homeinfo +='  <button class="btn btn-warning btn-block" type="button"><span class="glyphicon glyphicon-road big-icon"></span> <h4>Daily Action Planner</h4></button>';
     homeinfo +='</a>';
-    homeinfo +='</div>';
+    homeinfo +='</div>';*/
     if (assigned == 'team-leader'){
         homeinfo +='<div class="thumbnail">';
         homeinfo +='<a href="tasks.html">';

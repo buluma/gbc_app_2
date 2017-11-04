@@ -2,10 +2,10 @@ var localURI = 'http://localhost/eabl_web';
 //var stagingURI = 'http://gbc.me.ke/gbc-data-app-staging';
 var stagingURI = 'http://gbc.me.ke/gbceabl';
 var liveURI = 'http://gbc.me.ke/eabl-web';
- var ServerURI = stagingURI;
-//var ServerURI = localURI;
+var ServerURI = stagingURI;
+// var ServerURI = localURI;
 
-var appversion = '0.0.6';
+var appversion = '2.0.0';
 
 /*
 document.addEventListener("deviceready",function(){
@@ -80,6 +80,22 @@ function CreateTables(tx) {
     tx.executeSql('CREATE TABLE IF NOT EXISTS eabl_activity_images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,activity_id INTEGER,activity_unique_id,submitter VARCHAR,store_id INTEGER,store VARCHAR,store_server_id VARCHAR,image BLOB,created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,last_sync TEXT DEFAULT "none")');
     tx.executeSql('CREATE TABLE IF NOT EXISTS quality_issues (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, coords VARCHAR,brand VARCHAR,brandcode VARCHAR,issue_type VARCHAR,rateofsale VARCHAR, expiry_date VARCHAR, submitter VARCHAR,store VARCHAR,store_id INTEGER, store_server_id INTEGER, remarks VARCHAR, created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,last_sync TEXT DEFAULT "none")');
     
+    //activation table
+    // tx.executeSql('DROP TABLE activation');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS activation (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,coords VARCHAR, activation_status,storming_status VARCHAR,submitter VARCHAR,store VARCHAR,store_id INTEGER, store_server_id VARCHAR,created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,last_sync TEXT DEFAULT "none")');
+
+    //visibility table
+    // tx.executeSql('DROP TABLE visibility');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS visibility (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,coords VARCHAR, wall_branding VARCHAR,sign_board VARCHAR,eye_level VARCHAR,poster_available VARCHAR,poster_placement VARCHAR,visibility_potential VARCHAR, submitter VARCHAR,store VARCHAR,store_id INTEGER, store_server_id VARCHAR,created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,last_sync TEXT DEFAULT "none")');
+
+    //placement table
+    // tx.executeSql('DROP TABLE placement');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS placement (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,coords VARCHAR, sell_wl_1l VARCHAR,sell_wl_35cl VARCHAR,sell_wl_75cl VARCHAR,submitter VARCHAR,store VARCHAR,store_id INTEGER, store_server_id VARCHAR,created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,last_sync TEXT DEFAULT "none")');
+
+    //availability table
+    // tx.executeSql('DROP TABLE availability');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS availability (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,coords VARCHAR, available_wl_1l VARCHAR,available_wl_35cl VARCHAR,available_wl_75cl VARCHAR,submitter VARCHAR,store VARCHAR,store_id INTEGER, store_server_id VARCHAR,created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,last_sync TEXT DEFAULT "none")');
+
     tx.executeSql('CREATE TABLE IF NOT EXISTS focus_areas (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,coords VARCHAR, focus_type VARCHAR, description VARCHAR,action_input VARCHAR,start_date VARCHAR,end_date VARCHAR, submitter VARCHAR,store VARCHAR,store_id INTEGER, store_server_id VARCHAR,created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,last_sync TEXT DEFAULT "none")');
 
     tx.executeSql('CREATE TABLE IF NOT EXISTS action_items (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,coords VARCHAR, description VARCHAR, submitter VARCHAR,store VARCHAR,store_id INTEGER, store_server_id VARCHAR,created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,last_sync TEXT DEFAULT "none")');
@@ -117,7 +133,7 @@ function successCB() {
 function successTableCreation() {
     console.log("success! Tables were created successfully");
     syncProductsTable();
-    syncObjectivesTable();
+    // syncObjectivesTable();
 }
 function onReadyTransaction(){
 	console.log('Transaction completed');
@@ -326,6 +342,7 @@ function syncProductsTable(){
     })
 }
 function syncObjectivesTable(){
+    console.log('fetching objectives from online...');
     getLastItemSync('eabl_objectives','modified_on',function(lastSync){
         loadItemsFromServer('eablobjectives',lastSync,function(result){
             if (result instanceof Object){

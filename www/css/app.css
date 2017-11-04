@@ -94,7 +94,12 @@ h1, .h1, h2, .h2, h3, .h3 {
 .bold {
   font-weight: 700;
 }
-.big-checkbox {width:30px;height:30px;margin: -6px 0px 0px -40px !important;}
+.big-checkbox {
+    width: 25px;
+    height: 25px;
+    margin: -10px 0px 0px -40px !important;
+}
+
 .hidden {display:none;}
 .align-center {text-align:center;}
 .align-left {text-align:left;}
@@ -244,8 +249,8 @@ button.btn-clear {
 }
 .btn-success {
   color: #fff;
-  background-color: #A0A71D;
-  border-color: #4cae4c;
+  background-color: #00964e;
+  border-color: #00964e;
 }
 input#day-time-input.form-control{
   border-radius: 4px;
@@ -270,4 +275,11 @@ form#formchecklist.form-horizontal label{
 
 h4, .h4 {
     font-size: 16px !important;
+}
+h4.list-group-item-heading a{
+  color: #ef3e2a;
+}
+
+.hide-tl{
+  display: none;
 }

@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "f383fa05-4e8e-48df-94b8-aaa6880e539a",
-      "lastModifiedDate": 1509722409102,
+      "lastModifiedDate": 1509808269366,
       "creationDate": 1456470333878
     },
     "sourceDirectory": "www",
@@ -108,7 +108,7 @@
         "selectedState": "Included",
         "checksum": "77b7c7b6",
         "dependsOn": [],
-        "topLevel": true,
+        "topLevel": false,
         "permissions": {
           "android:name": [
             "android.permission.WRITE_EXTERNAL_STORAGE"
@@ -215,8 +215,7 @@
         "description": "Intel XDK Device Plugin",
         "data": {},
         "dependedBy": [],
-        "custom": "true",
-        "cordovaVersion": ">=3.3.0"
+        "custom": "true"
       }
     ],
     "serviceMethods": [],

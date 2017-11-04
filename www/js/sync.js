@@ -116,6 +116,33 @@ $(document).ready(function(){
 			tables.push({tableName : 'focus_areas'});
 	    }
 	});
+	$('#chkactivation').change(function(){
+		if ($(this).is(':checked')){
+			tables.push({tableName : 'activation'});
+			// console.log(tables);
+	    }
+	});
+	$('#chkvisibility').change(function(){
+		if ($(this).is(':checked')){
+			tables.push({tableName : 'visibility'});
+			// console.log(tables);
+	    }
+	});
+	
+	$('#chkplacement').change(function(){
+		if ($(this).is(':checked')){
+			tables.push({tableName : 'placement'});
+			// console.log(tables);chkavailability
+	    }
+	});
+
+	$('#chkavailability').change(function(){
+		if ($(this).is(':checked')){
+			tables.push({tableName : 'availability'});
+			// console.log(tables);chkavailability
+	    }
+	});
+
 	$('#chktl_focus').change(function(){
 		if ($(this).is(':checked')){
 			tables.push({tableName : 'tl_focus_areas'});
