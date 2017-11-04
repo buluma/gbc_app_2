@@ -154,6 +154,7 @@ task cdvPrintProps << {
 }
 
 android {
+    useLibrary 'org.apache.http.legacy'
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -174,7 +175,7 @@ android {
         if (cdvMinSdkVersion != null) {
             minSdkVersion cdvMinSdkVersion
         }
-        useLibrary 'org.apache.http.legacy'
+       // useLibrary 'org.apache.http.legacy'
     }
 
     lintOptions {
