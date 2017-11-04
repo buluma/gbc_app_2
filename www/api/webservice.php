@@ -29,7 +29,7 @@ if (isset($_GET['user_auth'])){
 			   'username'     => $promoter->username,
 			   'fullname'     => $promoter->name,
 			   'userlevel'    => $promoter->user_level,
-			   'useremail'    => $promoter->email,
+			   'useremail'    => $promoter->user_email,
 			   'shop'         => $promoter->shop,
 			   'shopid'       => $promoter->shop_id,
 			   'assigned'     => $promoter->assigned,

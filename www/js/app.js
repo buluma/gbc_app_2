@@ -54,10 +54,10 @@ $(document).ready(function(){
 
 $(document).ready(function() {
     var modaluserinfo = '<ul class="list-group">';
-    modaluserinfo += '<li class="list-group-item">';
-    modaluserinfo += ' <h4><strong>User ID: </strong></h4>';
-    modaluserinfo += '<p>'+userobj.userid+'</p>';
-    modaluserinfo += '</li>';
+    // modaluserinfo += '<li class="list-group-item">';
+    // modaluserinfo += ' <h4><strong>User ID: </strong></h4>';
+    // modaluserinfo += '<p>'+userobj.userid+'</p>';
+    // modaluserinfo += '</li>';
     modaluserinfo += '<li class="list-group-item">';
     modaluserinfo += '  <h4><strong>Username: </strong><h4>';
     modaluserinfo += '<p>'+username+'</p>';

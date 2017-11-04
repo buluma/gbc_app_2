@@ -1,8 +1,9 @@
 var localURI = 'http://localhost/eabl_web';
 //var stagingURI = 'http://gbc.me.ke/gbc-data-app-staging';
-var stagingURI = 'http://gbc.me.ke/gbceabl';
-var liveURI = 'http://gbc.me.ke/eabl-web';
-var ServerURI = stagingURI;
+var stagingURI = 'http://gbc.me.ke/barcadi-web';
+var liveURI = 'http://gbc.me.ke/barcadi-web';
+// var ServerURI = stagingURI;
+var ServerURI = liveURI;
 // var ServerURI = localURI;
 
 var appversion = '2.0.0';
