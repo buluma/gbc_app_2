@@ -1,0 +1,145 @@
+---
+# This is a basic workflow to help you get started with Actions
+
+name: Test, Build and Release
+
+# Build only on push tags
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.tag }}
+      output3: ${{ steps.step3.outputs.sha_short }}
+      output4: ${{ steps.step4.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: step1
+        run: echo "::set-output name=test::tag"
+      - id: step2
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - id: step3
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - id: step4
+        run: echo "::set-output name=sha::sha"
+
+      - name: remove java 11
+        run: ls /usr/lib/jvm/ && sudo rm -r /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64 && ls /usr/lib/jvm/
+
+      - name: check and instl jdk-8
+        run: sudo apt install openjdk-8-jdk openjdk-8-jre && java -version
+
+      - name: Verify Java11 removed and java-8-openjdk-amd64 installed
+        run: ls /usr/lib/jvm/
+
+      - name: check for jdk path and export
+        run: ls /usr/lib/jvm/ && export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 && export PATH=$JAVA_HOME/bin:$PATH
+
+      - name: check java version
+        run: java -version && echo $JAVA_HOME
+
+      - name: check javac version
+        run: javac -version && echo $JAVA_HOME
+
+  build:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: test
+    steps:
+      - run: echo ${{needs.test.outputs.output1}} ${{needs.test.outputs.output2}} ${{needs.test.outputs.output4}} ${{needs.test.outputs.output3}}
+
+      - name: init NPM
+        run: sudo npm update
+        
+      - uses: actions/checkout@v2
+      - name: Check & Remove jdk-11
+        run: ls /usr/lib/jvm/ && sudo rm -r /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
+
+      - name: Install jdk-8 & Check installed version
+        run: sudo apt install openjdk-8-jdk openjdk-8-jre && java -version
+
+      - name: Install Cordova & node-properties-parser
+#         run: sudo npm install -g cordova && sudo npm install node-properties-parser
+        run: sudo npm install -g cordova && sudo npm install node-properties-parser
+        
+      - name: Build Android
+        uses: buluma/setup-cordova@v0.0.3
+        with:
+          # Apache Cordova command to execute with java verification
+#           exec: java -version && cordova build android --verbose
+          exec: java -version && cordova platform ls
+
+      - name: Upload APK File
+        uses: actions/upload-artifact@v2
+        with:
+          # Define Package file for release workflow
+          name: wvef-app-debug.apk
+          path: platforms/android/app/build/outputs/apk/debug/app-debug.apk
+
+  release:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [test, build]
+    steps:
+    - name: Check outupt is loaded
+      run: echo ${{needs.test.outputs.output1}} ${{needs.test.outputs.output2}} ${{needs.test.outputs.output3}}
+
+    - name: Delete Latest Release
+      uses: liudonghua123/delete-release-action@v1
+      with:
+        release_name: 'latest'
+
+    - name: Check Branch Tag
+      run: echo ${{ steps.vars.outputs.tag }}
+
+    - name: Create Draft Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{needs.test.outputs.output2}}
+        release_name: ${{needs.test.outputs.output2}}
+        draft: false
+        prerelease: false
+
+    - name: Download APK File from Build
+      uses: actions/download-artifact@v2
+      with:
+        # Download Package file from build workflow
+        name: wvef-app-debug.apk
+
+    - name: Verify APK exists
+      run: ls -a /home/runner/work/gbc_app_2/gbc_app_2
+
+    - name: Verify APK exists in current directory
+      run: ls -a 
+
+    - name: Release Assets
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: /home/runner/work/gbc_app_2/gbc_app_2/app-debug.apk
+        asset_name: gbc-app-2-${{ needs.test.outputs.output3 }}.apk
+        asset_content_type: application/apk
+
+    - name: Release Complete
+      uses: eregon/publish-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_id: ${{ steps.create_release.outputs.id }}
