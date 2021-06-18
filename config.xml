@@ -11,10 +11,10 @@
 <content src="index.html"/>
 <access origin="*"/>
 <allow-intent href="http://*,mailto:*"/>
-<icon platform="android" src="img/icons/icon36x36.png" density="ldpi" width="36" height="36"/>
+<!-- <icon platform="android" src="img/icons/icon36x36.png" density="ldpi" width="36" height="36"/>
 <icon platform="android" src="img/icons/icon48x48.png" density="mdpi" width="48" height="48"/>
 <icon platform="android" src="img/icons/icon72x72.png" density="hdpi" width="72" height="72"/>
-<icon platform="android" src="img/icons/icon96x96.png" density="xhdpi" width="96" height="96"/>
+<icon platform="android" src="img/icons/icon96x96.png" density="xhdpi" width="96" height="96"/> -->
 <plugin name="cordova-plugin-camera" spec="2.1.0" />
 <plugin name="cordova-plugin-device" spec="1.1.1" />
 <plugin name="cordova-plugin-dialogs" spec="1.2.0" />
