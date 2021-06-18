@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.gbckenya.gbc.android" version="2.0.0" android-versionCode="1">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.gbckenya.gbc.android" version="2.0.1" android-versionCode="1">
 <!-- This config.xml file created by xdk-to-cli.js at 11/4/2017, 7:52:37 PM -->
 <!-- original comment removed -->
 <!-- original comment removed -->
 <!-- <intelxdk:version value="1.1"/> -->
 <preference name="phonegap-version" value="cli-6.5.0" /> <!-- <intelxdk:cordova-cli version="5.4.1"/> -->  <preference name="android-build-tool" value="gradle" /> 
-<name>GBC - Stock Monitoring 2.0</name>
+<name>GBC - Stock Monitoring 2.0.1</name>
 <description>GBC - Stock Tracking Applications</description>
 <author>Greenbell Communications</author>
 <content src="index.html"/>
