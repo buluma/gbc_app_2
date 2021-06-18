@@ -78,8 +78,8 @@ jobs:
         uses: buluma/setup-cordova@v0.0.3
         with:
           # Apache Cordova command to execute with java verification
-#           exec: java -version && cordova build android --verbose
-          exec: java -version && cordova platform ls
+          exec: java -version && cordova build android --verbose
+#           exec: java -version && cordova platform ls
 
       - name: Upload APK File
         uses: actions/upload-artifact@v2
